@@ -21,7 +21,15 @@ Route::middleware(['guest'])->group(function () {
 
 // middleware auth/admin = untuk user yang sudah login sebagai admin
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'view']);
+    Route::get('/admin', [AdminController::class, 'view'])->name('admin');
     // route logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // route users
+    Route::get('/users', [AdminController::class, 'users'])->name('users.index');
+    // route edit user
+    Route::get('/users/{user}/edit', [AdminController::class, 'edit'])->name('users.edit');
+    // route update user
+    Route::put('/users/{user}', [AdminController::class, 'update'])->name('users.update');
+    // route delete user
+    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
 });
