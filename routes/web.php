@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PortofolioController;
+use App\Http\Controllers\HomeController;
 
 // middleware guest/tamu = untuk user yang belum login
 // middleware auth = untuk user yang sudah login
@@ -14,9 +16,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
     // route landing page
-    Route::get('/', function () {
-        return view('index');
-    });
+    Route::get('/', [HomeController::class, 'view'])->name('home');
+    
 });
 
 // middleware auth/admin = untuk user yang sudah login sebagai admin
@@ -32,4 +33,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/users/{user}', [AdminController::class, 'update'])->name('users.update');
     // route delete user
     Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
+
+    // route portofolio
+    Route::get('/portofolio', [PortofolioController::class, 'view'])->name('portofolio.index');
+    Route::get('/portofolio/create', [PortofolioController::class, 'create'])->name('portofolio.create');
+    Route::post('/portofolio/create', [PortofolioController::class, 'store'])->name('portofolio.store');
 });
