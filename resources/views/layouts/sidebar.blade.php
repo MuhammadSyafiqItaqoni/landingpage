@@ -74,21 +74,27 @@
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
-
             <!-- Users -->
             <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
               <a href="{{ route('users.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user me-2"></i>
                 <!-- <i class="menu-icon tf-icons bx bx-home-circle"></i> -->
+                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Analytics">User Data</div>
               </a>
             </li>
-
+            <!-- Hero -->
+            <li class="menu-item {{ Route::is('hero.edit') ? 'active' : '' }}">
+              <a href="{{ route('hero.edit') }}" class="menu-link">
+                <!-- <i class="menu-icon tf-icons bx bx-home-circle"></i> -->
+                 <i class="menu-icon tf-icons bx bx-layout"></i>
+              <div data-i18n="Hero Data">Hero Data</div>
+              </a>
+            </li>
             <!-- Portofolio -->
             <li class="menu-item {{ request()->routeIs('portofolio.*') ? 'active' : '' }}">
               <a href="{{ route('portofolio.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
                 <!-- <i class="menu-icon tf-icons bx bx-home-circle"></i> -->
+                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Analytics">Portofolio</div>
               </a>
             </li>
