@@ -32,36 +32,24 @@
                     <input type="text" id="category" name="category" class="form-control" placeholder="Input Category" />
 
                   </div>
-                  <div class="form-text">You can use letters, numbers & periods</div>
                 </div>
               </div>
 
-              <div class="row-mb-3">
+              <div class="row mb-3">
                 <label for="image" class="col-sm-2 col-form-label">Image</label>
-                <div class="col-sm-10"></div>
-                {{-- @if (Storage::disk('public')->exists($portofolio->image)) --}}
-                  <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="card h-100">
-                      <img id="img-preview" class="card-img-top" src=""
-                        alt="Card image cap" />
-                      <div class="card-body">
-                        {{-- <h5 class="card-title">Card title</h5> --}}
-                        {{-- <p class="card-text">
-                          Some quick example text to build on the card title and make up the bulk of the card's content.
-                        </p> --}}
-                        {{-- <a href="javascript:void(0)" class="btn btn-outline-danger">Delete</a> --}}
-                      </div>
-                    </div>
-                  </div>
-                {{-- @else
-                  <div class="form-text">Belum ada gambar</div>
-                @endif --}}
-                <input class="form-control" type="file" id="image" name="image" onChange="previewImage()"/>
+
+                <div class="col-sm-10">
+
+                  <img id="img-preview" class="img-fluid rounded mb-3" style="display:none; max-width:300px;" />
+
+                  <input type="file" class="form-control" id="image" name="image" onchange="previewImage()">
+                </div>
               </div>
 
               <div class="row justify-content-end">
                 <div class="col-sm-10">
                   <button type="submit" class="btn btn-primary">Send</button>
+                  <a href="{{ route('portofolio.index') }}" class="btn btn-secondary">Back</a>
                 </div>
               </div>
             </form>
@@ -73,13 +61,13 @@
   </div>
 
   <script>
-      const image = document.querySelector('#image');
-      const imgPreview = document.querySelector('#img-preview');
-      const card = document.querySelector('.img-preview');
+    const image = document.querySelector('#image');
+    const imgPreview = document.querySelector('#img-preview');
+    const card = document.querySelector('.img-preview');
 
-      card.style.display = 'none';
+    card.style.display = 'none';
     function previewImage() {
-      
+
 
       if (image.files && image.files[0]) {
         const reader = new FileReader();

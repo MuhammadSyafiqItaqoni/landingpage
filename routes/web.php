@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TeamController;
 
 // middleware guest/tamu
 Route::middleware(['guest'])->group(function () {
@@ -55,4 +56,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/service/{id}/edit', [ServiceController::class, 'edit'])->name('service.edit'); // Gunakan {id} agar cocok dengan controller
     Route::put('/service/{id}', [ServiceController::class, 'update'])->name('service.update');
     Route::delete('/service/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+
+    // route team
+    Route::get('/team', [TeamController::class, 'index'])->name('team.index'); // SUDAH DIGANTI KE index
+    Route::get('/team/create', [TeamController::class, 'create'])->name('team.create');
+    Route::post('/team', [TeamController::class, 'store'])->name('team.store');
+    Route::get('/team/{id}/edit', [TeamController::class, 'edit'])->name('team.edit'); // Gunakan {id} agar cocok dengan controller
+    Route::put('/team/{id}', [TeamController::class, 'update'])->name('team.update');
+    Route::delete('/team/{id}', [TeamController::class, 'destroy'])->name('team.destroy');
 });

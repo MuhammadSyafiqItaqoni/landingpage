@@ -6,21 +6,21 @@
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Add New Service</h5>
+                    <h5 class="mb-0">Add Teams Data</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('service.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('team.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Title</label>
+                            <label class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="title" placeholder="Service Title" required />
+                                <input type="text" class="form-control" name="name" placeholder="Team Member Name" required />
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Description</label>
+                            <label class="col-sm-2 col-form-label">Role</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="description" placeholder="Service Description" required></textarea>
+                                <textarea class="form-control" name="role" placeholder="Team Member Role" required></textarea>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -32,10 +32,32 @@
                                 <input class="form-control" type="file" id="image" name="image" onChange="previewImage()" required />
                             </div>
                         </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Link Twitter</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="twitter" placeholder="Twitter Link" required />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Link Facebook</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="facebook" placeholder="Facebook Link" required />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Link Linkedin</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="linkedin" placeholder="Linkedin Link" required />
+                            </div>
+                        </div>
+
                         <div class="row justify-content-end">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-primary">Send</button>
-                                <a href="{{ route('service.index') }}" class="btn btn-secondary">Back</a>
+                                <a href="{{ route('team.index') }}" class="btn btn-outline-secondary">Back</a>
                             </div>
                         </div>
                     </form>

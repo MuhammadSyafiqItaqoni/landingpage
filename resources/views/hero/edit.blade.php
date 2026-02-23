@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Hero Layouts</h4>
 
     <div class="row">
         <div class="col-xxl">
@@ -44,8 +43,6 @@
                                     /> 
                                     <span class="input-group-text" id="basic-default-email2">Action Button</span>
                                 </div>
-                                <div class="form-text">This text will appear on the main call-to-action button.</div>
-                            </div>
                         </div>
                     
                         <div class="mb-4">

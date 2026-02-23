@@ -3,17 +3,17 @@
 @section('content')
   <div class="container-xxl flex-grow-1 container-p-y">
     @if (session('success'))
-    <div class="alert alert-success">
-      {{ session('success') }}  
-    </div>
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
     @endif
-    
+
     <div class="card">
-      <h5 class="card-header">Hoverable rows</h5>
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-header">Portofolio Data</h5>
+        <a class="btn btn-primary" href="{{ route('portofolio.create') }}">Add Portofolio</a>
+      </div>
       <div class="card">
-        <div>
-          <a class="btn btn-primary" href="{{ route('portofolio.create') }}">Add Portofolio</a>
-        </div>
         <div class="table-responsive text-nowrap">
           <table class="table table-hover">
             <thead>
@@ -32,36 +32,36 @@
                   <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $porto->title }}</strong></td>
                   <td>{{ $porto->category }}</td>
                   <!-- <td>
-                                <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                  <li
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up"
-                                    title="Lilian Fuller"
-                                  >
-                                    <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                  </li>
-                                  <li
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up"
-                                    title="Sophia Wilkerson"
-                                  >
-                                    <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                                  </li>
-                                  <li
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up"
-                                    title="Christina Parker"
-                                  >
-                                    <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                                  </li>
-                                </ul>
-                              </td> -->
+                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                      <li
+                                        data-bs-toggle="tooltip"
+                                        data-popup="tooltip-custom"
+                                        data-bs-placement="top"
+                                        class="avatar avatar-xs pull-up"
+                                        title="Lilian Fuller"
+                                      >
+                                        <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
+                                      </li>
+                                      <li
+                                        data-bs-toggle="tooltip"
+                                        data-popup="tooltip-custom"
+                                        data-bs-placement="top"
+                                        class="avatar avatar-xs pull-up"
+                                        title="Sophia Wilkerson"
+                                      >
+                                        <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
+                                      </li>
+                                      <li
+                                        data-bs-toggle="tooltip"
+                                        data-popup="tooltip-custom"
+                                        data-bs-placement="top"
+                                        class="avatar avatar-xs pull-up"
+                                        title="Christina Parker"
+                                      >
+                                        <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
+                                      </li>
+                                    </ul>
+                                  </td> -->
 
                   <td>
                     @if (Storage::disk('public')->exists($porto->image))
@@ -81,7 +81,6 @@
                     @else
                       <div class="form-text">Belum ada gambar</div>
                     @endif
-                    <span class="badge bg-label-primary me-1">{{ $porto->image }}</span>
                   </td>
                   <td>
                     <div class="dropdown">

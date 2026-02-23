@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Hero;
 use App\Models\Portofolio;
 use App\Models\Service;
+use App\Models\Team;
+
 
 class HomeController extends Controller
 {
@@ -13,11 +15,13 @@ class HomeController extends Controller
         $portofolios = Portofolio::all();
         $hero = Hero::first();
         $services = Service::all();
+        $teams = Team::all();
 
         return view('index', [
             'portofolios' => $portofolios,
             'hero' => $hero,
             'services' => $services,
+            'teams' => $teams,
         ]);
     }
 

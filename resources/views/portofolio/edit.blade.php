@@ -2,105 +2,94 @@
 
 @section('content')
 
-<div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Horizontal Layouts</h4>
+  <div class="container-xxl flex-grow-1 container-p-y">
 
-              <!-- Basic Layout & Basic with Icons -->
-              <div class="row">
-                <!-- Basic Layout -->
-                <div class="col-xxl">
-                  <div class="card mb-4">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Basic Layout</h5>
-                      <small class="text-muted float-end">Default label</small>
-                    </div>
-                    <div class="card-body">
-                      <form action="{{ route('portofolio.update', $portofolio) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="title">Title</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="title" name="title" placeholder="Input Title" value="{{ $portofolio->title }}" />
-                          </div>
-                        </div>
-                        
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="category">Category</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input
-                                type="text"
-                                id="category"
-                                name="category"
-                                value="{{ $portofolio->category }}"
-                                class="form-control"
-                                placeholder="Input Category"
-                                
-                              />
-                              
-                            </div>
-                            <div class="form-text">You can use letters, numbers & periods</div>
-                          </div>
-                        </div>
-                        
-                        <div class="row-mb-3">
-                        <label for="image" class="col-sm-2 col-form-label">Image</label>
-                        <div class="col-sm-10">
-                        @if (Storage::disk('public')->exists($portofolio->image))
-                            <div class="col-md-6 col-lg-4 mb-3">
-                  <div class="card h-100">
-                    <img id="img-preview" class="card-img-top" src="{{ asset('storage/'.$portofolio->image) }}" alt="Card image cap" />
-                    <div class="card-body">
-                      {{-- <h5 class="card-title">Card title</h5> --}}
-                      {{-- <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the card's content.
-                      </p> --}}
-                      {{-- <a href="javascript:void(0)" class="btn btn-outline-danger">Delete</a> --}}
-                    </div>
-                  </div>
-                </div>
-            @else 
-            <div class="form-text">Belum ada gambar</div>
-            @endif
-                        <input class="form-control" type="file" id="image" name="image" onChange="previewImage()" />
-                      </div>
+    <!-- Basic Layout & Basic with Icons -->
+    <div class="row">
+      <!-- Basic Layout -->
+      <div class="col-xxl">
+        <div class="card mb-4">
+          <div class="card-header d-flex align-items-center justify-content-between">
+            <h5 class="mb-0">Edit Portofolio</h5>
+            <small class="text-muted float-end">Edit Portofolio Data</small>
+          </div>
+          <div class="card-body">
+            <form action="{{ route('portofolio.update', $portofolio) }}" method="POST" enctype="multipart/form-data">
+              @csrf
+              @method('PUT')
 
-                        <div class="row justify-content-end">
-                          <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Send</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="title">Title</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="title" name="title" placeholder="Input Title"
+                    value="{{ $portofolio->title }}" />
                 </div>
-                
               </div>
-            </div>
-    
-    <script>
-        function previewImage() {
-            const image = document.querySelector('#image');
-            const imgPreview = document.querySelector('#img-preview');
 
-            if(image.files && image.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imgPreview.src = e.target.result;
-                    imgPreview.style.display = 'block';
-                }
-                reader.readAsDataURL(image.files[0]);
-            }
-        imgPreview.style.display = 'block';
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="category">Category</label>
+                <div class="col-sm-10">
+                  <div class="input-group input-group-merge">
+                    <input type="text" id="category" name="category" value="{{ $portofolio->category }}"
+                      class="form-control" placeholder="Input Category" />
 
-        const ofReader = new FileReader();
-        ofReader.readAsDataURL(image.files[0]);
+                  </div>
+                </div>
+              </div>
 
-        ofReader.onload = function(oFREvent) {
-            imgPreview.src = oFREvent.target.result;
+              <div class="row mb-3">
+                <label for="image" class="col-sm-2 col-form-label">Image</label>
+                <div class="col-sm-10">
+
+                  @if ($portofolio->image && Storage::disk('public')->exists($portofolio->image))
+                    <div class="mb-3" style="max-width:300px;">
+                      <img id="img-preview" src="{{ asset('storage/' . $portofolio->image) }}" class="img-fluid rounded">
+                    </div>
+                  @else
+                    <div class="mb-3">
+                      <img id="img-preview" class="img-fluid rounded" style="display:none; max-width:300px;">
+                    </div>
+                  @endif
+
+                  <input type="file" class="form-control" id="image" name="image" onchange="previewImage()">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-10 offset-sm-2">
+                  <button type="submit" class="btn btn-primary me-2">Send</button>
+                  <a href="{{ route('portofolio.index') }}" class="btn btn-secondary">Back</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function previewImage() {
+      const image = document.querySelector('#image');
+      const imgPreview = document.querySelector('#img-preview');
+
+      if (image.files && image.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imgPreview.src = e.target.result;
+          imgPreview.style.display = 'block';
         }
+        reader.readAsDataURL(image.files[0]);
+      }
+      imgPreview.style.display = 'block';
+
+      const ofReader = new FileReader();
+      ofReader.readAsDataURL(image.files[0]);
+
+      ofReader.onload = function (oFREvent) {
+        imgPreview.src = oFREvent.target.result;
+      }
     }
-    </script>
+  </script>
 @endsection
