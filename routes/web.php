@@ -4,10 +4,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\ServiceController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeamController;
+use Illuminate\Support\Facades\Route;
+
+// Route untuk memproses pengiriman pesan dari user
+Route::post('/messages/send', [MessageController::class, 'store'])->name('messages.store');
 
 // middleware guest/tamu
 Route::middleware(['guest'])->group(function () {
@@ -64,4 +68,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/team/{id}/edit', [TeamController::class, 'edit'])->name('team.edit'); // Gunakan {id} agar cocok dengan controller
     Route::put('/team/{id}', [TeamController::class, 'update'])->name('team.update');
     Route::delete('/team/{id}', [TeamController::class, 'destroy'])->name('team.destroy');
+
+    // Route untuk halaman admin (index)
+    Route::get('/admin/messages', [MessageController::class, 'index'])->name('messages.index');
+
+    // Route untuk menghapus pesan (delete)
+    Route::delete('/messages/{id}', [MessageController::class, 'destroy'])->name('message.destroy');
+
+    Route::get('/messages/{id}/edit', [MessageController::class, 'edit'])->name('messages.edit');
+    Route::put('/messages/{id}', [MessageController::class, 'update'])->name('messages.update');
+
 });

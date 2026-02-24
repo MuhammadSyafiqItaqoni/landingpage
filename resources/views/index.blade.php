@@ -57,47 +57,47 @@
     </header>
     <!-- Services-->
     <section class="page-section" id="services">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-heading text-uppercase">Services</h2>
-            <h3 class="section-subheading text-muted">Layanan unggulan yang kami tawarkan.</h3>
-        </div>
-        
-        <div class="row text-center">
-            {{-- LOOPING DATA DARI DATABASE --}}
-            @foreach ($services as $item)
-                <div class="col-md-4 mb-5">
-                    {{-- Bungkus gambar dalam div biasa, jangan pakai span fa-stack lagi --}}
-                    <div class="d-flex justify-content-center mb-4">
-                        @if($item->image)
-                            <img src="{{ asset('storage/' . $item->image) }}" 
-                                 alt="{{ $item->title }}" 
-                                 style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
-                                 {{-- border: 5px solid #ffc107; --}}
-                        @else
-                            <span class="fa-stack fa-4x">
-                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                                <i class="fas fa-briefcase fa-stack-1x fa-inverse"></i>
-                            </span>
-                        @endif
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Services</h2>
+                <h3 class="section-subheading text-muted">Layanan unggulan yang kami tawarkan.</h3>
+            </div>
+
+            <div class="row text-center">
+                {{-- LOOPING DATA DARI DATABASE --}}
+                @foreach ($services as $item)
+                    <div class="col-md-4 mb-5">
+                        {{-- Bungkus gambar dalam div biasa, jangan pakai span fa-stack lagi --}}
+                        <div class="d-flex justify-content-center mb-4">
+                            @if($item->image)
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}"
+                                    style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+                                {{-- border: 5px solid #ffc107; --}}
+                            @else
+                                <span class="fa-stack fa-4x">
+                                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                    <i class="fas fa-briefcase fa-stack-1x fa-inverse"></i>
+                                </span>
+                            @endif
+                        </div>
+
+                        <h4 class="my-3">{{ $item->title }}</h4>
+                        <p class="text-muted">{{ $item->description }}</p>
+
+                        {{-- Tambahan: Tombol hapus/edit kalau lo mau taruh di sini --}}
+                        {{-- <div class="mt-3">
+                            <form action="{{ route('service.destroy', $item->id) }}" method="POST"
+                                onsubmit="return confirm('Yakin hapus?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                            </form>
+                        </div> --}}
                     </div>
-                    
-                    <h4 class="my-3">{{ $item->title }}</h4>
-                    <p class="text-muted">{{ $item->description }}</p>
-                    
-                    {{-- Tambahan: Tombol hapus/edit kalau lo mau taruh di sini --}}
-                    {{-- <div class="mt-3">
-                        <form action="{{ route('service.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                        </form>
-                    </div> --}}
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
-</section>
+    </section>
     <!-- Portfolio Grid-->
     <section class="page-section bg-light" id="portfolio">
         <div class="container">
@@ -221,16 +221,19 @@
             </div>
             <div class="row">
                 @foreach ($teams as $team)
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="{{asset('storage/'.$team->image)}}" alt="..." />
-                        <h4>{{ $team->name }}</h4>
-                        <p class="text-muted">{{ $team->role }}</p>
-                        <a class="btn btn-dark btn-social mx-2" href="{{ $team->twitter }}"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="{{ $team->facebook }}"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="{{ $team->linkedin }}"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                            <img class="mx-auto rounded-circle" src="{{asset('storage/' . $team->image)}}" alt="..." />
+                            <h4>{{ $team->name }}</h4>
+                            <p class="text-muted">{{ $team->role }}</p>
+                            <a class="btn btn-dark btn-social mx-2" href="{{ $team->twitter }}"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="{{ $team->facebook }}"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="{{ $team->linkedin }}"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
                     </div>
-                </div>
                 @endforeach
             </div>
             <div class="row">
@@ -265,7 +268,67 @@
         </div>
     </div>
     <!-- Contact-->
+
     <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">Contact Us</h2>
+                <h3 class="section-subheading text-muted">Silahkan tinggalkan pesan, kami akan segera menghubungi Anda.
+                </h3>
+            </div>
+
+            {{-- Menampilkan Pesan Sukses --}}
+            @if(session('success'))
+                <div class="alert alert-success text-center mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            {{-- Update Form: Action mengarah ke route store, Method POST, dan tambah @csrf --}}
+            <form id="contactForm" action="{{ route('messages.store') }}" method="POST">
+                @csrf
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input class="form-control" name="name" type="text" placeholder="Your Name *" required />
+                        </div>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group">
+                            <input class="form-control" name="email" type="email" placeholder="Your Email *" required />
+                        </div>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group mb-md-0">
+                            <input class="form-control" name="phone" type="tel" placeholder="Your Phone *" required />
+                        </div>
+                        @error('phone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-textarea mb-md-0">
+                            <textarea class="form-control" name="message" placeholder="Your Message *"
+                                required></textarea>
+                        </div>
+                    </div>
+                    @error('message')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                </div>
+
+                <div class="text-center">
+                    {{-- PENTING: Hapus class 'disabled' bawaan template agar tombol bisa diklik --}}
+                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    {{-- <section class="page-section" id="contact">
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Contact Us</h2>
@@ -337,7 +400,7 @@
                         id="submitButton" type="submit">Send Message</button></div>
             </form>
         </div>
-    </section>
+    </section> --}}
     <!-- Footer-->
     <footer class="footer py-4">
         <div class="container">
@@ -612,14 +675,14 @@
 
             {{-- <div class="row">
                 @foreach ($services as $item)
-                    <div class="col-md-4 mb-4">
-                        <div class="icon-box"
-                            style="background-color: #ffc107; color: white; width: 100px; height: 100px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 20px;">
-                            <i class="{{ $item->image }}"></i>
-                        </div>
-                        <h4 class="fw-bold">{{ $item->title }}</h4>
-                        <p class="text-muted">{{ $item->description }}</p>
+                <div class="col-md-4 mb-4">
+                    <div class="icon-box"
+                        style="background-color: #ffc107; color: white; width: 100px; height: 100px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 20px;">
+                        <i class="{{ $item->image }}"></i>
                     </div>
+                    <h4 class="fw-bold">{{ $item->title }}</h4>
+                    <p class="text-muted">{{ $item->description }}</p>
+                </div>
                 @endforeach
             </div> --}}
         </div>
