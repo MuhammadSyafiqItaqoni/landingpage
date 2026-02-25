@@ -48,7 +48,7 @@
                                         <a class="dropdown-item" href="{{ route('team.edit', $team->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                                         <form action="{{ route('team.destroy', $team->id) }}" method="POST">
                                             @csrf @method('DELETE')
-                                            <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
+                                            <button type="submit" class="dropdown-item text-danger"><i class="bx bx-trash me-1"></i> Delete</button>
                                         </form>
                                     </div>
                                 </div>

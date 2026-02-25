@@ -17,11 +17,12 @@ return new class extends Migration
         $table->string('email');
         $table->string('phone');
         $table->text('message');
+        $table->boolean('read')->default(false);
         $table->timestamps();
     });
     }
 
-    /**
+    /*
      * Reverse the migrations.
      */
     public function down(): void

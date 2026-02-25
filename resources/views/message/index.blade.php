@@ -7,11 +7,8 @@
         @endif
 
         <div class="card">
-            <div>
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="card-header mb-0">Message Data</h5>
-                    {{-- Tombol 'Add' dihapus karena pesan otomatis masuk dari halaman depan --}}
-                </div>
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Message Data</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
@@ -22,16 +19,36 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Message</th>
+                                <th>Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
                             @foreach ($messages as $item)
-                                <tr>
-                                    <td><strong>{{ $item->name }}</strong></td>
+                                {{-- Baris tabel --}}
+                                <tr class="{{ $item->read ? '' : 'table-info' }}">
+
+                                    {{-- 1. Kolom Nama --}}
+                                    <td>
+                                        <strong>{{ $item->name }}</strong>
+                                        @if(!$item->read)
+                                            <span class="badge bg-danger ms-1">New</span>
+                                        @endif
+                                    </td>
+
+                                    {{-- 2. Kolom Email --}}
                                     <td>{{ $item->email }}</td>
+
+                                    {{-- 3. Kolom Phone --}}
                                     <td>{{ $item->phone }}</td>
-                                    <td>{{ Str::limit($item->message, 50) }}</td>
+
+                                    {{-- 4. Kolom Message --}}
+                                    <td>{{ Str::limit($item->message, 30) }}</td>
+
+                                    {{-- 5. Kolom Tanggal (Satu baris dengan data lain) --}}
+                                    <td>{{ $item->created_at->format('d M Y') }}</td>
+
+                                    {{-- 6. Kolom Actions --}}
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -39,21 +56,17 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                {{-- Tombol Edit --}}
                                                 <a class="dropdown-item" href="{{ route('messages.edit', $item->id) }}">
-                                                    View More
+                                                    <i class="bx bx-show-alt me-1"></i> Detail
                                                 </a>
 
-                                                {{-- Tombol Delete (Tanpa Alert Konfirmasi) --}}
                                                 <form action="{{ route('message.destroy', $item->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item text-danger">
-                                                        Delete
+                                                        <i class="bx bx-trash me-1"></i> Delete
                                                     </button>
                                                 </form>
-
-                                                
                                             </div>
                                         </div>
                                     </td>

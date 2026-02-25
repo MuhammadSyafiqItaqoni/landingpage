@@ -66,7 +66,7 @@
                                 <form action="{{ route('users.destroy', $user) }}" method="POST">
                                   @csrf
                                   @method('DELETE')
-                                <button type="submit" class="dropdown-item" href=""><i class="bx bx-trash me-1"></i> Delete</button>
+                                <button type="submit" class="dropdown-item text-danger" href=""><i class="bx bx-trash me-1"></i> Delete</button>
                                   </form>
                               </div>
                             </div>

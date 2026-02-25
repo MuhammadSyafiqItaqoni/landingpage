@@ -78,4 +78,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/messages/{id}/edit', [MessageController::class, 'edit'])->name('messages.edit');
     Route::put('/messages/{id}', [MessageController::class, 'update'])->name('messages.update');
 
+    Route::put('/messages/{id}/read', [MessageController::class, 'markAsRead'])->name('messages.read');
 });

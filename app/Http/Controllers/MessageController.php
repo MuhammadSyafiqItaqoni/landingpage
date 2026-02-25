@@ -11,7 +11,11 @@ class MessageController extends Controller
     // Fungsi view (menampilkan halaman admin)
     public function index()
     {
-        $messages = Message::all();
+        $messages = Message::orderBy('read', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        // $count = $messages->where('read', false)->count();
+        
 
         return view('message.index', compact('messages'));
     }
@@ -58,7 +62,17 @@ class MessageController extends Controller
     {
         $message = Message::findOrFail($id);
 
-        return view('message.edit', compact('message')); // Sesuaikan folder view lo
+        // OTOMATIS JADI READ: Kalau pesan belum dibaca, ubah jadi true
+        if (! $message->read) {
+            $message->update(['read' => true]);
+        }
+
+        // Kalau dibuka admin, status berubah jadi sudah dibaca
+        if (! $message->read) {
+            $message->update(['read' => true]);
+        }
+
+        return view('message.edit', compact('message'));
     }
 
     public function update(Request $request, $id)
@@ -74,5 +88,14 @@ class MessageController extends Controller
         $message->update($request->all());
 
         return redirect()->route('messages.index')->with('success', 'Pesan berhasil diperbarui!');
+    }
+
+    public function markAsRead($id)
+    {
+        $message = Message::findOrFail($id);
+        $message->read = true;
+        $message->save();
+
+        return redirect()->back()->with('success', 'Pesan ditandai sebagai sudah dibaca!');
     }
 }

@@ -6,7 +6,7 @@
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">View Message Data</h5>
+                    <h5 class="mb-0">Detail Message</h5>
                     <small class="text-muted float-end">Admin Panel</small>
                 </div>
                 <div class="card-body">
@@ -20,7 +20,7 @@
                             <label class="col-sm-2 col-form-label" for="name">Name</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="name" name="name" 
-                                    value="{{ $message->name }}" required />
+                                    value="{{ $message->name }}" readonly />
                             </div>
                         </div>
 
@@ -29,7 +29,7 @@
                             <label class="col-sm-2 col-form-label" for="email">Email</label>
                             <div class="col-sm-10">
                                 <input type="email" class="form-control" id="email" name="email" 
-                                    value="{{ $message->email }}" required />
+                                    value="{{ $message->email }}" readonly />
                             </div>
                         </div>
 
@@ -38,7 +38,7 @@
                             <label class="col-sm-2 col-form-label" for="phone">Phone</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="phone" name="phone" 
-                                    value="{{ $message->phone }}" required />
+                                    value="{{ $message->phone }}" readonly />
                             </div>
                         </div>
 
@@ -47,7 +47,7 @@
                             <label class="col-sm-2 col-form-label" for="message">Message</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" id="message" name="message" 
-                                    rows="5" required>{{ $message->message }}</textarea>
+                                    rows="5" cols="800px" readonly>{{ $message->message }}</textarea>
                             </div>
                         </div>
 
